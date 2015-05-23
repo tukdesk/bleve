@@ -712,3 +712,253 @@ func TestIndexCountMatchSearch(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestBatchReset(t *testing.T) {
+	defer func() {
+		err := os.RemoveAll("testidx")
+		if err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	index, err := New("testidx", NewIndexMapping())
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	batch := index.NewBatch()
+	err = batch.Index("k1", struct {
+		Body string
+	}{
+		Body: "v1",
+	})
+	if err != nil {
+		t.Error(err)
+	}
+	batch.Delete("k2")
+	batch.SetInternal([]byte("k3"), []byte("v3"))
+	batch.DeleteInternal([]byte("k4"))
+
+	if batch.Size() != 4 {
+		t.Logf("%v", batch)
+		t.Errorf("expected batch size 4, got %d", batch.Size())
+	}
+
+	batch.Reset()
+
+	if batch.Size() != 0 {
+		t.Errorf("expected batch size 0 after reset, got %d", batch.Size())
+	}
+
+	err = index.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestDocumentFieldArrayPositions(t *testing.T) {
+	defer func() {
+		err := os.RemoveAll("testidx")
+		if err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	index, err := New("testidx", NewIndexMapping())
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// index a document with an array of strings
+	err = index.Index("k", struct {
+		Messages []string
+	}{
+		Messages: []string{
+			"first",
+			"second",
+			"third",
+			"last",
+		},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// load the document
+	doc, err := index.Document("k")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, f := range doc.Fields {
+		if reflect.DeepEqual(f.Value(), []byte("first")) {
+			ap := f.ArrayPositions()
+			if len(ap) < 1 {
+				t.Errorf("expected an array position, got none")
+				continue
+			}
+			if ap[0] != 0 {
+				t.Errorf("expected 'first' in array position 0, got %d", ap[0])
+			}
+		}
+		if reflect.DeepEqual(f.Value(), []byte("second")) {
+			ap := f.ArrayPositions()
+			if len(ap) < 1 {
+				t.Errorf("expected an array position, got none")
+				continue
+			}
+			if ap[0] != 1 {
+				t.Errorf("expected 'second' in array position 1, got %d", ap[0])
+			}
+		}
+		if reflect.DeepEqual(f.Value(), []byte("third")) {
+			ap := f.ArrayPositions()
+			if len(ap) < 1 {
+				t.Errorf("expected an array position, got none")
+				continue
+			}
+			if ap[0] != 2 {
+				t.Errorf("expected 'third' in array position 2, got %d", ap[0])
+			}
+		}
+		if reflect.DeepEqual(f.Value(), []byte("last")) {
+			ap := f.ArrayPositions()
+			if len(ap) < 1 {
+				t.Errorf("expected an array position, got none")
+				continue
+			}
+			if ap[0] != 3 {
+				t.Errorf("expected 'last' in array position 3, got %d", ap[0])
+			}
+		}
+	}
+
+	// now index a document in the same field with a single string
+	err = index.Index("k2", struct {
+		Messages string
+	}{
+		Messages: "only",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// load the document
+	doc, err = index.Document("k2")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, f := range doc.Fields {
+		if reflect.DeepEqual(f.Value(), []byte("only")) {
+			ap := f.ArrayPositions()
+			if len(ap) != 0 {
+				t.Errorf("expected no array positions, got %d", len(ap))
+				continue
+			}
+		}
+	}
+
+	err = index.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestKeywordSearchBug207(t *testing.T) {
+	defer func() {
+		err := os.RemoveAll("testidx")
+		if err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	f := NewTextFieldMapping()
+	f.Analyzer = "keyword"
+
+	m := NewIndexMapping()
+	m.DefaultMapping = NewDocumentMapping()
+	m.DefaultMapping.AddFieldMappingsAt("Body", f)
+
+	index, err := New("testidx", m)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	doc1 := struct {
+		Body string
+	}{
+		Body: "a555c3bb06f7a127cda000005",
+	}
+
+	err = index.Index("a", doc1)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	doc2 := struct {
+		Body string
+	}{
+		Body: "555c3bb06f7a127cda000005",
+	}
+
+	err = index.Index("b", doc2)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// now search for these terms
+	sreq := NewSearchRequest(NewTermQuery("a555c3bb06f7a127cda000005"))
+	sres, err := index.Search(sreq)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if sres.Total != 1 {
+		t.Errorf("expected 1 result, got %d", sres.Total)
+	}
+	if sres.Hits[0].ID != "a" {
+		t.Errorf("expecated id 'a', got '%s'", sres.Hits[0].ID)
+	}
+
+	sreq = NewSearchRequest(NewTermQuery("555c3bb06f7a127cda000005"))
+	sres, err = index.Search(sreq)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if sres.Total != 1 {
+		t.Errorf("expected 1 result, got %d", sres.Total)
+	}
+	if sres.Hits[0].ID != "b" {
+		t.Errorf("expecated id 'b', got '%s'", sres.Hits[0].ID)
+	}
+
+	// now do the same searches using query strings
+	sreq = NewSearchRequest(NewQueryStringQuery("Body:a555c3bb06f7a127cda000005"))
+	sres, err = index.Search(sreq)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if sres.Total != 1 {
+		t.Errorf("expected 1 result, got %d", sres.Total)
+	}
+	if sres.Hits[0].ID != "a" {
+		t.Errorf("expecated id 'a', got '%s'", sres.Hits[0].ID)
+	}
+
+	sreq = NewSearchRequest(NewQueryStringQuery(`Body:555c3bb06f7a127cda000005`))
+	sres, err = index.Search(sreq)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if sres.Total != 1 {
+		t.Errorf("expected 1 result, got %d", sres.Total)
+	}
+	if sres.Hits[0].ID != "b" {
+		t.Errorf("expecated id 'b', got '%s'", sres.Hits[0].ID)
+	}
+
+	err = index.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+}

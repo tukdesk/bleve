@@ -28,6 +28,8 @@ import (
 
 var VersionKey = []byte{'v'}
 
+var UnsafeBatchUseDetected = fmt.Errorf("bleve.Batch is NOT thread-safe, modification after execution detected")
+
 const Version uint8 = 4
 
 var IncompatibleVersion = fmt.Errorf("incompatible version, %d is supported", Version)
@@ -524,14 +526,14 @@ func (udc *UpsideDownCouch) backIndexRowsForBatch(kvreader store.KVReader, batch
 	return rv, nil
 }
 
-func decodeFieldType(typ byte, name string, value []byte) document.Field {
+func decodeFieldType(typ byte, name string, pos []uint64, value []byte) document.Field {
 	switch typ {
 	case 't':
-		return document.NewTextField(name, []uint64{}, value)
+		return document.NewTextField(name, pos, value)
 	case 'n':
-		return document.NewNumericFieldFromBytes(name, []uint64{}, value)
+		return document.NewNumericFieldFromBytes(name, pos, value)
 	case 'd':
-		return document.NewDateTimeFieldFromBytes(name, []uint64{}, value)
+		return document.NewDateTimeFieldFromBytes(name, pos, value)
 	}
 	return nil
 }
@@ -593,9 +595,20 @@ func (udc *UpsideDownCouch) Batch(batch *index.Batch) (err error) {
 		}
 	}
 
+	var detectedUnsafeMutex sync.RWMutex
+	detectedUnsafe := false
+
 	go func() {
+		sofar := uint64(0)
 		for _, doc := range batch.IndexOps {
 			if doc != nil {
+				sofar++
+				if sofar > numUpdates {
+					detectedUnsafeMutex.Lock()
+					detectedUnsafe = true
+					detectedUnsafeMutex.Unlock()
+					return
+				}
 				aw := AnalysisWork{
 					udc: udc,
 					d:   doc,
@@ -616,6 +629,12 @@ func (udc *UpsideDownCouch) Batch(batch *index.Batch) (err error) {
 		itemsDeQueued++
 	}
 	close(resultChan)
+
+	detectedUnsafeMutex.RLock()
+	defer detectedUnsafeMutex.RUnlock()
+	if detectedUnsafe {
+		return UnsafeBatchUseDetected
+	}
 
 	atomic.AddUint64(&udc.stats.analysisTime, uint64(time.Since(analysisStart)))
 
