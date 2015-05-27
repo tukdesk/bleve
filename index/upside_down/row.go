@@ -21,6 +21,10 @@ import (
 
 const ByteSeparator byte = 0xff
 
+const arrayPositionsSymbolLen = binary.MaxVarintLen64
+
+var arrayPositionsSymbol = bytes.Repeat([]byte{0xff}, arrayPositionsSymbolLen)
+
 type UpsideDownCouchRowStream chan UpsideDownCouchRow
 
 type UpsideDownCouchRow interface {
@@ -259,14 +263,15 @@ func (dr *DictionaryRow) parseDictionaryV(value []byte) error {
 // TERM FIELD FREQUENCY
 
 type TermVector struct {
-	field uint16
-	pos   uint64
-	start uint64
-	end   uint64
+	field          uint16
+	arrayPositions []uint64
+	pos            uint64
+	start          uint64
+	end            uint64
 }
 
 func (tv *TermVector) String() string {
-	return fmt.Sprintf("Field: %d Pos: %d Start: %d End %d", tv.field, tv.pos, tv.start, tv.end)
+	return fmt.Sprintf("Field: %d  ArrayPositions: %#v Pos: %d Start: %d End %d", tv.field, tv.arrayPositions, tv.pos, tv.start, tv.end)
 }
 
 type TermFrequencyRow struct {
@@ -319,7 +324,16 @@ func (tfr *TermFrequencyRow) DictionaryRowKey() []byte {
 
 func (tfr *TermFrequencyRow) Value() []byte {
 	used := 0
-	buf := make([]byte, binary.MaxVarintLen64+binary.MaxVarintLen64+(len(tfr.vectors)*(binary.MaxVarintLen64*4)))
+	bufLen := binary.MaxVarintLen64 + binary.MaxVarintLen64 // for freq and norm
+	for _, vector := range tfr.vectors {
+		bufLen += binary.MaxVarintLen64 * 4 // for field, pos, start, end
+		if len(vector.arrayPositions) > 0 {
+			bufLen += arrayPositionsSymbolLen + binary.MaxVarintLen64 // for arrayPositions symbol and length
+			bufLen += binary.MaxVarintLen64 * len(vector.arrayPositions)
+		}
+	}
+
+	buf := make([]byte, bufLen)
 
 	used += binary.PutUvarint(buf[used:used+binary.MaxVarintLen64], tfr.freq)
 
@@ -332,6 +346,13 @@ func (tfr *TermFrequencyRow) Value() []byte {
 		used += binary.PutUvarint(buf[used:used+binary.MaxVarintLen64], vector.pos)
 		used += binary.PutUvarint(buf[used:used+binary.MaxVarintLen64], vector.start)
 		used += binary.PutUvarint(buf[used:used+binary.MaxVarintLen64], vector.end)
+		if len(vector.arrayPositions) > 0 {
+			used += copy(buf[used:used+binary.MaxVarintLen64], arrayPositionsSymbol)
+			used += binary.PutUvarint(buf[used:used+binary.MaxVarintLen64], uint64(len(vector.arrayPositions)))
+			for _, pos := range vector.arrayPositions {
+				used += binary.PutUvarint(buf[used:used+binary.MaxVarintLen64], pos)
+			}
+		}
 	}
 	return buf[0:used]
 }
@@ -430,6 +451,27 @@ func (tfr *TermFrequencyRow) parseV(value []byte) error {
 			return fmt.Errorf("invalid term frequency value, vector contains no end")
 		}
 		currOffset += bytesRead
+
+		if currOffset+arrayPositionsSymbolLen < len(value) && bytes.Equal(value[currOffset:currOffset+arrayPositionsSymbolLen], arrayPositionsSymbol) {
+			// arrayPositionSymbol exists
+			currOffset += arrayPositionsSymbolLen
+
+			var arrayPositionsLen uint64 = 0
+			arrayPositionsLen, bytesRead = binary.Uvarint(value[currOffset:])
+			if bytesRead <= 0 {
+				return fmt.Errorf("invalid term frequency value, vector arrayPositionsSymbol exists, but contains no arrayPositionLen")
+			}
+			currOffset += bytesRead
+
+			tv.arrayPositions = make([]uint64, arrayPositionsLen)
+			for i := 0; uint64(i) < arrayPositionsLen; i++ {
+				tv.arrayPositions[i], bytesRead = binary.Uvarint(value[currOffset:])
+				if bytesRead <= 0 {
+					return fmt.Errorf("invalid term frequency value, vector contains no arrayPosition of index %d", i)
+				}
+				currOffset += bytesRead
+			}
+		}
 
 		tfr.vectors = append(tfr.vectors, &tv)
 		// try to read next record (may not exist)
