@@ -14,12 +14,19 @@ func MergeLocations(locations []FieldTermLocationMap) FieldTermLocationMap {
 
 	for i := 1; i < len(locations); i++ {
 		nextLocations := locations[i]
-		for field, termLocationMap := range nextLocations {
-			rvTermLocationMap, rvHasField := rv[field]
+		for field, outterMap := range nextLocations {
+			rvArrayPositionsTermLocationMap, rvHasField := rv[field]
 			if rvHasField {
-				rv[field] = MergeTermLocationMaps(rvTermLocationMap, termLocationMap)
+				for arrayPositionsStr, termLocationMap := range outterMap {
+					rvTermLocationMap, rvHasArrayPositionsStr := rv[field][arrayPositionsStr]
+					if rvHasArrayPositionsStr {
+						rv[field][arrayPositionsStr] = MergeTermLocationMaps(rvTermLocationMap, termLocationMap)
+					} else {
+						rv[field][arrayPositionsStr] = termLocationMap
+					}
+				}
 			} else {
-				rv[field] = termLocationMap
+				rv[field] = rvArrayPositionsTermLocationMap
 			}
 		}
 	}
