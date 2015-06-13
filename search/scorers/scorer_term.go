@@ -140,7 +140,12 @@ func (s *TermQueryScorer) Score(termMatch *index.TermFieldDoc) *search.DocumentM
 
 		rv.Locations = make(search.FieldTermLocationMap)
 		for _, v := range termMatch.Vectors {
-			tlm := rv.Locations[v.Field]
+			if rv.Locations[v.Field] == nil {
+				// init if arrayPositions-term map for v.Field does not exist
+				rv.Locations[v.Field] = map[string]search.TermLocationMap{}
+			}
+
+			tlm := rv.Locations[v.Field][v.ArrayPositionsString()]
 			if tlm == nil {
 				tlm = make(search.TermLocationMap)
 			}
@@ -160,7 +165,7 @@ func (s *TermQueryScorer) Score(termMatch *index.TermFieldDoc) *search.DocumentM
 			}
 			tlm[s.queryTerm] = locations
 
-			rv.Locations[v.Field] = tlm
+			rv.Locations[v.Field][v.ArrayPositionsString()] = tlm
 		}
 
 	}

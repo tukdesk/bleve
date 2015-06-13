@@ -12,8 +12,10 @@ package simple
 import (
 	"container/heap"
 	"fmt"
+	"sort"
 
 	"github.com/tukdesk/bleve/document"
+	"github.com/tukdesk/bleve/index"
 	"github.com/tukdesk/bleve/registry"
 	"github.com/tukdesk/bleve/search"
 	"github.com/tukdesk/bleve/search/highlight"
@@ -26,24 +28,6 @@ type Highlighter struct {
 	fragmenter highlight.Fragmenter
 	formatter  highlight.FragmentFormatter
 	sep        string
-}
-
-func arrayPositionsEqual(expected, actual []uint64) bool {
-	if len(expected) != len(actual) {
-		return false
-	}
-
-	if len(expected) == 0 {
-		return true
-	}
-
-	for i, one := range expected {
-		if one != actual[i] {
-			return false
-		}
-	}
-
-	return true
 }
 
 func NewHighlighter(fragmenter highlight.Fragmenter, formatter highlight.FragmentFormatter, separator string) *Highlighter {
@@ -78,32 +62,38 @@ func (s *Highlighter) SetSeparator(sep string) {
 	s.sep = sep
 }
 
-func (s *Highlighter) BestFragmentInField(dm *search.DocumentMatch, doc *document.Document, field string, arrayPositions []uint64) string {
-	fragments := s.BestFragmentsInField(dm, doc, field, arrayPositions, 1)
+func (s *Highlighter) BestFragmentInField(dm *search.DocumentMatch, doc *document.Document, field string) string {
+	fragments := s.BestFragmentsInField(dm, doc, field, 1)
 	if len(fragments) > 0 {
 		return fragments[0]
 	}
 	return ""
 }
 
-func (s *Highlighter) BestFragmentsInField(dm *search.DocumentMatch, doc *document.Document, field string, arrayPositions []uint64, num int) []string {
-	tlm := dm.Locations[field]
-	orderedTermLocations := highlight.OrderTermLocations(tlm)
-	scorer := NewFragmentScorer(tlm)
+func (s *Highlighter) BestFragmentsInField(dm *search.DocumentMatch, doc *document.Document, field string, num int) []string {
+	aptlm := dm.Locations[field]
+	totalTermLocationsLen := make(highlight.TermLocations, 0)
 
 	// score the fragments and put them into a priority queue ordered by score
 	fq := make(FragmentQueue, 0)
 	heap.Init(&fq)
 	for _, f := range doc.Fields {
-		if f.Name() == field && arrayPositionsEqual(arrayPositions, f.ArrayPositions()) {
+		arrayPositionsStr := index.ArrayPositionsToString(f.ArrayPositions())
+		if f.Name() == field && len(aptlm[arrayPositionsStr]) > 0 {
 			_, ok := f.(*document.TextField)
 			if ok {
+				tlm := aptlm[arrayPositionsStr]
+				orderedTermLocations := highlight.OrderTermLocations(tlm)
+				scorer := NewFragmentScorer(tlm)
+
 				fieldData := f.Value()
 				fragments := s.fragmenter.Fragment(fieldData, orderedTermLocations)
 				for _, fragment := range fragments {
 					scorer.Score(fragment)
 					heap.Push(&fq, fragment)
 				}
+
+				totalTermLocationsLen = append(totalTermLocationsLen, orderedTermLocations...)
 			}
 		}
 	}
@@ -138,14 +128,15 @@ func (s *Highlighter) BestFragmentsInField(dm *search.DocumentMatch, doc *docume
 	}
 
 	// now that we have the best fragments, we can format them
-	orderedTermLocations.MergeOverlapping()
+	sort.Sort(totalTermLocationsLen)
+	totalTermLocationsLen.MergeOverlapping()
 	formattedFragments := make([]string, len(bestFragments))
 	for i, fragment := range bestFragments {
 		formattedFragments[i] = ""
 		if fragment.Start != 0 {
 			formattedFragments[i] += s.sep
 		}
-		formattedFragments[i] += s.formatter.Format(fragment, orderedTermLocations)
+		formattedFragments[i] += s.formatter.Format(fragment, totalTermLocationsLen)
 		if fragment.End != len(fragment.Orig) {
 			formattedFragments[i] += s.sep
 		}

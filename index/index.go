@@ -10,6 +10,7 @@
 package index
 
 import (
+	"encoding/binary"
 	"encoding/json"
 	"fmt"
 
@@ -66,6 +67,10 @@ type TermFieldVector struct {
 	Pos            uint64
 	Start          uint64
 	End            uint64
+}
+
+func (this *TermFieldVector) ArrayPositionsString() string {
+	return ArrayPositionsToString(this.ArrayPositions)
 }
 
 type TermFieldDoc struct {
@@ -153,4 +158,23 @@ func (b *Batch) Reset() {
 	for k, _ := range b.InternalOps {
 		delete(b.InternalOps, k)
 	}
+}
+
+const (
+	arrayPositionsPrefix = "_"
+)
+
+func ArrayPositionsToString(pos []uint64) string {
+	if len(pos) == 0 {
+		return arrayPositionsPrefix
+	}
+
+	buf := make([]byte, len(pos)*binary.MaxVarintLen64)
+
+	byteUsed := 0
+	for _, one := range pos {
+		byteUsed += binary.PutUvarint(buf, one)
+	}
+
+	return arrayPositionsPrefix + string(buf[0:byteUsed])
 }

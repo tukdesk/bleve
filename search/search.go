@@ -33,7 +33,7 @@ func (t TermLocationMap) AddLocation(term string, location *Location) {
 
 type FieldTermLocationMap map[string]map[string]TermLocationMap
 
-type FieldFragmentMap map[string]map[string][]string
+type FieldFragmentMap map[string][]string
 
 type DocumentMatch struct {
 	ID        string                 `json:"id"`

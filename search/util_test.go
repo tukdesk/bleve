@@ -16,64 +16,74 @@ import (
 
 func TestMergeLocations(t *testing.T) {
 	flm1 := FieldTermLocationMap{
-		"marty": TermLocationMap{
-			"name": {
-				&Location{
-					Pos:   1,
-					Start: 0,
-					End:   5,
+		"marty": map[string]TermLocationMap{
+			"_": TermLocationMap{
+				"name": {
+					&Location{
+						Pos:   1,
+						Start: 0,
+						End:   5,
+					},
 				},
 			},
 		},
 	}
 
 	flm2 := FieldTermLocationMap{
-		"marty": TermLocationMap{
-			"description": {
-				&Location{
-					Pos:   5,
-					Start: 20,
-					End:   25,
+		"marty": map[string]TermLocationMap{
+			"_": TermLocationMap{
+				"description": {
+					&Location{
+						Pos:   5,
+						Start: 20,
+						End:   25,
+					},
 				},
 			},
 		},
 	}
 
 	flm3 := FieldTermLocationMap{
-		"josh": TermLocationMap{
-			"description": {
-				&Location{
-					Pos:   5,
-					Start: 20,
-					End:   25,
+		"josh": map[string]TermLocationMap{
+			"_": TermLocationMap{
+				"description": {
+					&Location{
+						Pos:   5,
+						Start: 20,
+						End:   25,
+					},
 				},
 			},
 		},
 	}
 
 	expectedMerge := FieldTermLocationMap{
-		"marty": TermLocationMap{
-			"description": {
-				&Location{
-					Pos:   5,
-					Start: 20,
-					End:   25,
+		"marty": map[string]TermLocationMap{
+			"_": TermLocationMap{
+				"description": {
+					&Location{
+						Pos:   5,
+						Start: 20,
+						End:   25,
+					},
 				},
-			},
-			"name": {
-				&Location{
-					Pos:   1,
-					Start: 0,
-					End:   5,
+				"name": {
+					&Location{
+						Pos:   1,
+						Start: 0,
+						End:   5,
+					},
 				},
 			},
 		},
-		"josh": TermLocationMap{
-			"description": {
-				&Location{
-					Pos:   5,
-					Start: 20,
-					End:   25,
+		"josh": map[string]TermLocationMap{
+			"_": TermLocationMap{
+				"description": {
+					&Location{
+						Pos:   5,
+						Start: 20,
+						End:   25,
+					},
 				},
 			},
 		},
