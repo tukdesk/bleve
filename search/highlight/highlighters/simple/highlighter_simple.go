@@ -28,6 +28,24 @@ type Highlighter struct {
 	sep        string
 }
 
+func arrayPositionsEqual(expected, actual []uint64) bool {
+	if len(expected) != len(actual) {
+		return false
+	}
+
+	if len(expected) == 0 {
+		return true
+	}
+
+	for i, one := range expected {
+		if one != actual[i] {
+			return false
+		}
+	}
+
+	return true
+}
+
 func NewHighlighter(fragmenter highlight.Fragmenter, formatter highlight.FragmentFormatter, separator string) *Highlighter {
 	return &Highlighter{
 		fragmenter: fragmenter,
@@ -60,15 +78,15 @@ func (s *Highlighter) SetSeparator(sep string) {
 	s.sep = sep
 }
 
-func (s *Highlighter) BestFragmentInField(dm *search.DocumentMatch, doc *document.Document, field string) string {
-	fragments := s.BestFragmentsInField(dm, doc, field, 1)
+func (s *Highlighter) BestFragmentInField(dm *search.DocumentMatch, doc *document.Document, field string, arrayPositions []uint64) string {
+	fragments := s.BestFragmentsInField(dm, doc, field, arrayPositions, 1)
 	if len(fragments) > 0 {
 		return fragments[0]
 	}
 	return ""
 }
 
-func (s *Highlighter) BestFragmentsInField(dm *search.DocumentMatch, doc *document.Document, field string, num int) []string {
+func (s *Highlighter) BestFragmentsInField(dm *search.DocumentMatch, doc *document.Document, field string, arrayPositions []uint64, num int) []string {
 	tlm := dm.Locations[field]
 	orderedTermLocations := highlight.OrderTermLocations(tlm)
 	scorer := NewFragmentScorer(tlm)
@@ -77,7 +95,7 @@ func (s *Highlighter) BestFragmentsInField(dm *search.DocumentMatch, doc *docume
 	fq := make(FragmentQueue, 0)
 	heap.Init(&fq)
 	for _, f := range doc.Fields {
-		if f.Name() == field {
+		if f.Name() == field && arrayPositionsEqual(arrayPositions, f.ArrayPositions()) {
 			_, ok := f.(*document.TextField)
 			if ok {
 				fieldData := f.Value()

@@ -53,6 +53,6 @@ type Highlighter interface {
 	Separator() string
 	SetSeparator(string)
 
-	BestFragmentInField(*search.DocumentMatch, *document.Document, string) string
-	BestFragmentsInField(*search.DocumentMatch, *document.Document, string, int) []string
+	BestFragmentInField(*search.DocumentMatch, *document.Document, string, []uint64) string
+	BestFragmentsInField(*search.DocumentMatch, *document.Document, string, []uint64, int) []string
 }
