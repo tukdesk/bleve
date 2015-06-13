@@ -13,12 +13,12 @@
 package tr
 
 import (
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/registry"
 
-	"github.com/blevesearch/bleve/analysis/token_filters/apostrophe_filter"
-	"github.com/blevesearch/bleve/analysis/token_filters/lower_case_filter"
-	"github.com/blevesearch/bleve/analysis/tokenizers/icu"
+	"github.com/tukdesk/bleve/analysis/token_filters/apostrophe_filter"
+	"github.com/tukdesk/bleve/analysis/token_filters/lower_case_filter"
+	"github.com/tukdesk/bleve/analysis/tokenizers/icu"
 )
 
 const AnalyzerName = "tr"

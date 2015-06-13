@@ -17,14 +17,14 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/blevesearch/bleve/document"
-	"github.com/blevesearch/bleve/index"
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/index/upside_down"
-	"github.com/blevesearch/bleve/registry"
-	"github.com/blevesearch/bleve/search"
-	"github.com/blevesearch/bleve/search/collectors"
-	"github.com/blevesearch/bleve/search/facets"
+	"github.com/tukdesk/bleve/document"
+	"github.com/tukdesk/bleve/index"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/index/upside_down"
+	"github.com/tukdesk/bleve/registry"
+	"github.com/tukdesk/bleve/search"
+	"github.com/tukdesk/bleve/search/collectors"
+	"github.com/tukdesk/bleve/search/facets"
 )
 
 type indexImpl struct {

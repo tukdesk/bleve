@@ -12,8 +12,8 @@ package bleve
 import (
 	"time"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/document"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/document"
 )
 
 // A FieldMapping describes how a specific item

@@ -13,8 +13,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/index/store/boltdb"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/index/store/boltdb"
 )
 
 func CreateBoltDB() (store.KVStore, error) {

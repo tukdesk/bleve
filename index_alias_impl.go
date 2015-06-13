@@ -14,10 +14,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/blevesearch/bleve/document"
-	"github.com/blevesearch/bleve/index"
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/document"
+	"github.com/tukdesk/bleve/index"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/search"
 )
 
 type indexAliasImpl struct {

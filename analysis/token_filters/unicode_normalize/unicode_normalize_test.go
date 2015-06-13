@@ -13,7 +13,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/blevesearch/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis"
 )
 
 // the following tests come from the lucene

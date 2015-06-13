@@ -12,9 +12,9 @@ package bleve
 import (
 	"fmt"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/index"
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/index"
+	"github.com/tukdesk/bleve/search"
 )
 
 type matchPhraseQuery struct {

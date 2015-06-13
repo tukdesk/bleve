@@ -12,9 +12,9 @@ package fr
 import (
 	"fmt"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/analysis/token_filters/elision_filter"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis/token_filters/elision_filter"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const ElisionName = "elision_fr"

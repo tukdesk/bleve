@@ -12,9 +12,9 @@
 package ja
 
 import (
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/analysis/token_filters/unicode_normalize"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis/token_filters/unicode_normalize"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const AnalyzerName = "ja"

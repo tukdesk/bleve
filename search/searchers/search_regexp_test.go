@@ -13,7 +13,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/search"
 )
 
 func TestRegexpSearch(t *testing.T) {

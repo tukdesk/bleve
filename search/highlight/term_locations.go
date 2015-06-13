@@ -12,7 +12,7 @@ package highlight
 import (
 	"sort"
 
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/search"
 )
 
 type TermLocation struct {

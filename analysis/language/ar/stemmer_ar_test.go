@@ -13,7 +13,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/blevesearch/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis"
 )
 
 func TestArabicStemmerFilter(t *testing.T) {

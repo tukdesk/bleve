@@ -15,7 +15,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/blevesearch/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis"
 )
 
 func TestCld2Filter(t *testing.T) {

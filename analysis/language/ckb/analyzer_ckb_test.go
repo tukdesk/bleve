@@ -15,8 +15,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/registry"
 )
 
 func TestSoraniAnalyzer(t *testing.T) {

@@ -12,8 +12,8 @@ package cjk
 import (
 	"container/ring"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const BigramName = "cjk_bigram"

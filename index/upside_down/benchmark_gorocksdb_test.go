@@ -15,8 +15,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/index/store/gorocksdb"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/index/store/gorocksdb"
 )
 
 var rocksdbTestOptions = map[string]interface{}{

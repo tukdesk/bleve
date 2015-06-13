@@ -12,9 +12,9 @@ package whitespace_tokenizer
 import (
 	"regexp"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/analysis/tokenizers/regexp_tokenizer"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis/tokenizers/regexp_tokenizer"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const Name = "whitespace"

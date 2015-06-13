@@ -15,9 +15,9 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/registry"
 	"github.com/tecbot/gorocksdb"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const Name = "rocksdb"

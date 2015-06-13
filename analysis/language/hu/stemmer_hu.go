@@ -12,9 +12,9 @@
 package hu
 
 import (
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/analysis/token_filters/stemmer_filter"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis/token_filters/stemmer_filter"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const StemmerName = "stemmer_hu"

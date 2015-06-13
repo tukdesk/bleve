@@ -17,7 +17,7 @@ package gtreap
 import (
 	"math/rand"
 
-	"github.com/blevesearch/bleve/index/store"
+	"github.com/tukdesk/bleve/index/store"
 )
 
 func (w *Writer) BytesSafeAfterClose() bool {

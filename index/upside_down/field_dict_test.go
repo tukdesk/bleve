@@ -14,8 +14,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/blevesearch/bleve/document"
-	"github.com/blevesearch/bleve/index/store/boltdb"
+	"github.com/tukdesk/bleve/document"
+	"github.com/tukdesk/bleve/index/store/boltdb"
 )
 
 func TestIndexFieldDict(t *testing.T) {

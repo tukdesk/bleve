@@ -12,9 +12,9 @@ package html_char_filter
 import (
 	"time"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/analysis/datetime_parsers/flexible_go"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis/datetime_parsers/flexible_go"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const Name = "dateTimeOptional"

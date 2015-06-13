@@ -13,8 +13,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/blevesearch/bleve/analysis"
 	"github.com/blevesearch/segment"
+	"github.com/tukdesk/bleve/analysis"
 )
 
 func TestUnicode(t *testing.T) {

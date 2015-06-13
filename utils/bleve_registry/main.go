@@ -13,8 +13,8 @@ import (
 	"fmt"
 	"sort"
 
-	_ "github.com/blevesearch/bleve"
-	"github.com/blevesearch/bleve/registry"
+	_ "github.com/tukdesk/bleve"
+	"github.com/tukdesk/bleve/registry"
 )
 
 func main() {

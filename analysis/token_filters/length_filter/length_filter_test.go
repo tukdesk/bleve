@@ -12,7 +12,7 @@ package length_filter
 import (
 	"testing"
 
-	"github.com/blevesearch/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis"
 )
 
 func TestLengthFilter(t *testing.T) {

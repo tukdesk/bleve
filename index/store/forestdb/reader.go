@@ -14,8 +14,8 @@ package forestdb
 import (
 	"fmt"
 
-	"github.com/blevesearch/bleve/index/store"
 	"github.com/couchbase/goforestdb"
+	"github.com/tukdesk/bleve/index/store"
 )
 
 type Reader struct {

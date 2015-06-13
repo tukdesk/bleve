@@ -12,9 +12,9 @@ package facets
 import (
 	"sort"
 
-	"github.com/blevesearch/bleve/index"
-	"github.com/blevesearch/bleve/numeric_util"
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/index"
+	"github.com/tukdesk/bleve/numeric_util"
+	"github.com/tukdesk/bleve/search"
 )
 
 type numericRange struct {

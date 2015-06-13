@@ -13,8 +13,8 @@ import (
 	"bytes"
 	"unicode"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const NormalizeName = "normalize_ckb"

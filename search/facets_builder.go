@@ -12,7 +12,7 @@ package search
 import (
 	"sort"
 
-	"github.com/blevesearch/bleve/index"
+	"github.com/tukdesk/bleve/index"
 )
 
 type FacetBuilder interface {

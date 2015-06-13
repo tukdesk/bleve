@@ -15,8 +15,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/index/store/leveldb"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/index/store/leveldb"
 )
 
 var leveldbTestOptions = map[string]interface{}{

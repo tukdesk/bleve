@@ -13,7 +13,7 @@ import (
 	"container/list"
 	"time"
 
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/search"
 )
 
 type TopScoreCollector struct {

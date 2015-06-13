@@ -18,9 +18,9 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/registry"
 	"github.com/couchbase/goforestdb"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/registry"
 )
 
 type ForestDBConfig struct {

@@ -12,5 +12,5 @@
 package bleve
 
 import (
-	_ "github.com/blevesearch/bleve/index/store/cznicb"
+	_ "github.com/tukdesk/bleve/index/store/cznicb"
 )

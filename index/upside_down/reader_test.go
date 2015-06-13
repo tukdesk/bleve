@@ -14,9 +14,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/blevesearch/bleve/document"
-	"github.com/blevesearch/bleve/index"
-	"github.com/blevesearch/bleve/index/store/boltdb"
+	"github.com/tukdesk/bleve/document"
+	"github.com/tukdesk/bleve/index"
+	"github.com/tukdesk/bleve/index/store/boltdb"
 )
 
 func TestIndexReader(t *testing.T) {

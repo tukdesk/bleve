@@ -10,10 +10,10 @@
 package simple_analyzer
 
 import (
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/analysis/token_filters/lower_case_filter"
-	"github.com/blevesearch/bleve/analysis/tokenizers/unicode"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis/token_filters/lower_case_filter"
+	"github.com/tukdesk/bleve/analysis/tokenizers/unicode"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const Name = "simple"

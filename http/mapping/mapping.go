@@ -27,9 +27,9 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/blevesearch/bleve"
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/registry"
 )
 
 func AssetFS() *assetfs.AssetFS {

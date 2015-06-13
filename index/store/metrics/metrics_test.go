@@ -21,8 +21,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/blevesearch/bleve/index/store"
-	_ "github.com/blevesearch/bleve/index/store/gtreap"
+	"github.com/tukdesk/bleve/index/store"
+	_ "github.com/tukdesk/bleve/index/store/gtreap"
 )
 
 func TestMetricsStore(t *testing.T) {

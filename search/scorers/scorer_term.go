@@ -13,8 +13,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/blevesearch/bleve/index"
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/index"
+	"github.com/tukdesk/bleve/search"
 )
 
 type TermQueryScorer struct {

@@ -3,7 +3,7 @@ package null
 import (
 	"testing"
 
-	"github.com/blevesearch/bleve/index/store"
+	"github.com/tukdesk/bleve/index/store"
 )
 
 func TestStore(t *testing.T) {

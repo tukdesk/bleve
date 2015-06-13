@@ -10,7 +10,7 @@
 package upside_down
 
 import (
-	"github.com/blevesearch/bleve/document"
+	"github.com/tukdesk/bleve/document"
 )
 
 type AnalysisResult struct {

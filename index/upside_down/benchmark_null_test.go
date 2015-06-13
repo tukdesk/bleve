@@ -12,8 +12,8 @@ package upside_down
 import (
 	"testing"
 
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/index/store/null"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/index/store/null"
 )
 
 func CreateNull() (store.KVStore, error) {

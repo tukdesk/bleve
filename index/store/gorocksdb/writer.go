@@ -12,8 +12,8 @@
 package rocksdb
 
 import (
-	"github.com/blevesearch/bleve/index/store"
 	"github.com/tecbot/gorocksdb"
+	"github.com/tukdesk/bleve/index/store"
 )
 
 type Writer struct {

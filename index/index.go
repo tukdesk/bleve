@@ -13,7 +13,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/blevesearch/bleve/document"
+	"github.com/tukdesk/bleve/document"
 )
 
 type Index interface {

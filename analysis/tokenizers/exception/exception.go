@@ -14,8 +14,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const Name = "exception"

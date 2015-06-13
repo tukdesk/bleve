@@ -20,7 +20,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/blevesearch/bleve/index/upside_down"
+	"github.com/tukdesk/bleve/index/upside_down"
 )
 
 func TestBatchCrashBug195(t *testing.T) {

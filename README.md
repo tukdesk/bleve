@@ -1,6 +1,6 @@
 # ![bleve](docs/bleve.png) bleve
 
-[![Build Status](https://travis-ci.org/blevesearch/bleve.svg?branch=master)](https://travis-ci.org/blevesearch/bleve) [![Coverage Status](https://coveralls.io/repos/blevesearch/bleve/badge.png?branch=master)](https://coveralls.io/r/blevesearch/bleve?branch=master) [![GoDoc](https://godoc.org/github.com/blevesearch/bleve?status.svg)](https://godoc.org/github.com/blevesearch/bleve) [![Join the chat at https://gitter.im/blevesearch/bleve](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/blevesearch/bleve?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/blevesearch/bleve.svg?branch=master)](https://travis-ci.org/blevesearch/bleve) [![Coverage Status](https://coveralls.io/repos/blevesearch/bleve/badge.png?branch=master)](https://coveralls.io/r/blevesearch/bleve?branch=master) [![GoDoc](https://godoc.org/github.com/tukdesk/bleve?status.svg)](https://godoc.org/github.com/tukdesk/bleve) [![Join the chat at https://gitter.im/blevesearch/bleve](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/blevesearch/bleve?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 modern text indexing in go - [blevesearch.com](http://www.blevesearch.com/)
 
@@ -16,7 +16,7 @@ Try out bleve live by [searching our wiki](http://wikisearch.blevesearch.com/sea
     * Term, Phrase, Match, Match Phrase, Prefix
     * Conjunction, Disjunction, Boolean
     * Numeric Range, Date Range
-    * Simple query [syntax](https://github.com/blevesearch/bleve/wiki/Query-String-Query) for human entry
+    * Simple query [syntax](https://github.com/tukdesk/bleve/wiki/Query-String-Query) for human entry
 * tf-idf Scoring
 * Search result match highlighting
 * Supports Aggregating Facets:

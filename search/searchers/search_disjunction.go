@@ -13,9 +13,9 @@ import (
 	"math"
 	"sort"
 
-	"github.com/blevesearch/bleve/index"
-	"github.com/blevesearch/bleve/search"
-	"github.com/blevesearch/bleve/search/scorers"
+	"github.com/tukdesk/bleve/index"
+	"github.com/tukdesk/bleve/search"
+	"github.com/tukdesk/bleve/search/scorers"
 )
 
 type DisjunctionSearcher struct {

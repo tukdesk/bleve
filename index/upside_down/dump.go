@@ -13,7 +13,7 @@ import (
 	"bytes"
 	"sort"
 
-	"github.com/blevesearch/bleve/index/store"
+	"github.com/tukdesk/bleve/index/store"
 )
 
 // the functions in this file are only intended to be used by

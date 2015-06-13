@@ -13,9 +13,9 @@ import (
 	"bytes"
 	"math"
 
-	"github.com/blevesearch/bleve/index"
-	"github.com/blevesearch/bleve/numeric_util"
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/index"
+	"github.com/tukdesk/bleve/numeric_util"
+	"github.com/tukdesk/bleve/search"
 )
 
 type NumericRangeSearcher struct {

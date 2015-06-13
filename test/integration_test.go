@@ -19,7 +19,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/blevesearch/bleve"
+	"github.com/tukdesk/bleve"
 )
 
 var dataset = flag.String("dataset", "", "only test datasets matching this regex")

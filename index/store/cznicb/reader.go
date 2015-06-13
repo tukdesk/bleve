@@ -14,7 +14,7 @@
 package cznicb
 
 import (
-	"github.com/blevesearch/bleve/index/store"
+	"github.com/tukdesk/bleve/index/store"
 )
 
 type Reader struct {

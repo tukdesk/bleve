@@ -13,7 +13,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/blevesearch/bleve"
+	"github.com/tukdesk/bleve"
 )
 
 type GetIndexHandler struct {

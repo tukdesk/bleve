@@ -12,5 +12,5 @@
 package bleve
 
 import (
-	_ "github.com/blevesearch/bleve/analysis/language/ja"
+	_ "github.com/tukdesk/bleve/analysis/language/ja"
 )

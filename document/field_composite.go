@@ -10,7 +10,7 @@
 package document
 
 import (
-	"github.com/blevesearch/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis"
 )
 
 const DefaultCompositeIndexingOptions = IndexField

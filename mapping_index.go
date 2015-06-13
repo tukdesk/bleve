@@ -12,9 +12,9 @@ package bleve
 import (
 	"encoding/json"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/document"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/document"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const defaultTypeField = "_type"

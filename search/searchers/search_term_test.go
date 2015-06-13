@@ -13,9 +13,9 @@ import (
 	"math"
 	"testing"
 
-	"github.com/blevesearch/bleve/document"
-	"github.com/blevesearch/bleve/index/store/inmem"
-	"github.com/blevesearch/bleve/index/upside_down"
+	"github.com/tukdesk/bleve/document"
+	"github.com/tukdesk/bleve/index/store/inmem"
+	"github.com/tukdesk/bleve/index/upside_down"
 )
 
 func TestTermSearcher(t *testing.T) {

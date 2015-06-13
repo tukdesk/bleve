@@ -14,8 +14,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/search"
 )
 
 type numericRange struct {

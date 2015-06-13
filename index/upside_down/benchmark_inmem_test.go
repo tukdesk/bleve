@@ -12,8 +12,8 @@ package upside_down
 import (
 	"testing"
 
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/index/store/inmem"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/index/store/inmem"
 )
 
 func CreateInMem() (store.KVStore, error) {

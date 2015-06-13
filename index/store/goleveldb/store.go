@@ -13,11 +13,11 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/registry"
 	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/filter"
 	"github.com/syndtr/goleveldb/leveldb/opt"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const Name = "goleveldb"

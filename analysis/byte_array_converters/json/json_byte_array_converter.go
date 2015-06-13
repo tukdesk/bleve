@@ -12,8 +12,8 @@ package json_byte_array_converter
 import (
 	"encoding/json"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/registry"
 )
 
 type JSONByteArrayConverter struct{}

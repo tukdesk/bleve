@@ -12,8 +12,8 @@
 package leveldb
 
 import (
-	"github.com/blevesearch/bleve/index/store"
 	"github.com/jmhodges/levigo"
+	"github.com/tukdesk/bleve/index/store"
 )
 
 type Batch struct {

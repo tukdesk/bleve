@@ -12,7 +12,7 @@
 package bleve
 
 import (
-	_ "github.com/blevesearch/bleve/analysis/token_filters/stemmer_filter"
+	_ "github.com/tukdesk/bleve/analysis/token_filters/stemmer_filter"
 
-	_ "github.com/blevesearch/bleve/analysis/language/porter"
+	_ "github.com/tukdesk/bleve/analysis/language/porter"
 )

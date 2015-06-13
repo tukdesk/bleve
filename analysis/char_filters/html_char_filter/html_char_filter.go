@@ -12,9 +12,9 @@ package html_char_filter
 import (
 	"regexp"
 
-	"github.com/blevesearch/bleve/analysis"
-	"github.com/blevesearch/bleve/analysis/char_filters/regexp_char_filter"
-	"github.com/blevesearch/bleve/registry"
+	"github.com/tukdesk/bleve/analysis"
+	"github.com/tukdesk/bleve/analysis/char_filters/regexp_char_filter"
+	"github.com/tukdesk/bleve/registry"
 )
 
 const Name = "html"

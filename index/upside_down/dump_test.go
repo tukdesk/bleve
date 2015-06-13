@@ -10,12 +10,12 @@
 package upside_down
 
 import (
-	"github.com/blevesearch/bleve/index/store/boltdb"
+	"github.com/tukdesk/bleve/index/store/boltdb"
 	"os"
 	"testing"
 	"time"
 
-	"github.com/blevesearch/bleve/document"
+	"github.com/tukdesk/bleve/document"
 )
 
 func TestDump(t *testing.T) {

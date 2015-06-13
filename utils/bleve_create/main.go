@@ -15,7 +15,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/blevesearch/bleve"
+	"github.com/tukdesk/bleve"
 )
 
 var indexPath = flag.String("index", "", "index path")

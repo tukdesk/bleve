@@ -10,7 +10,7 @@
 package collectors
 
 import (
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/search"
 )
 
 type stubSearcher struct {

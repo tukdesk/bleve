@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/blevesearch/bleve/document"
-	"github.com/blevesearch/bleve/index"
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/document"
+	"github.com/tukdesk/bleve/index"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/search"
 )
 
 func TestIndexAliasSingle(t *testing.T) {
@@ -640,7 +640,7 @@ func TestMultiSearchSomeError(t *testing.T) {
 }
 
 // TestMultiSearchAllError
-// reproduces https://github.com/blevesearch/bleve/issues/126
+// reproduces https://github.com/tukdesk/bleve/issues/126
 func TestMultiSearchAllError(t *testing.T) {
 	ei1 := &stubIndex{err: fmt.Errorf("deliberate error")}
 	ei2 := &stubIndex{err: fmt.Errorf("deliberate error")}

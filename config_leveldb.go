@@ -12,7 +12,7 @@
 package bleve
 
 import (
-	_ "github.com/blevesearch/bleve/index/store/leveldb"
+	_ "github.com/tukdesk/bleve/index/store/leveldb"
 )
 
 func init() {

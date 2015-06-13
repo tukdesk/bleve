@@ -13,10 +13,10 @@ import (
 	"container/heap"
 	"fmt"
 
-	"github.com/blevesearch/bleve/document"
-	"github.com/blevesearch/bleve/registry"
-	"github.com/blevesearch/bleve/search"
-	"github.com/blevesearch/bleve/search/highlight"
+	"github.com/tukdesk/bleve/document"
+	"github.com/tukdesk/bleve/registry"
+	"github.com/tukdesk/bleve/search"
+	"github.com/tukdesk/bleve/search/highlight"
 )
 
 const Name = "simple"

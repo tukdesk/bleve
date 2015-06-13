@@ -13,8 +13,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/blevesearch/bleve/index/store"
-	"github.com/blevesearch/bleve/index/store/goleveldb"
+	"github.com/tukdesk/bleve/index/store"
+	"github.com/tukdesk/bleve/index/store/goleveldb"
 )
 
 var goLevelDBTestOptions = map[string]interface{}{

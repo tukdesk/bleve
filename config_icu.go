@@ -12,5 +12,5 @@
 package bleve
 
 import (
-	_ "github.com/blevesearch/bleve/analysis/tokenizers/icu"
+	_ "github.com/tukdesk/bleve/analysis/tokenizers/icu"
 )

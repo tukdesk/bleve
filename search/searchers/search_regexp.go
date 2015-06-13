@@ -12,8 +12,8 @@ package searchers
 import (
 	"regexp"
 
-	"github.com/blevesearch/bleve/index"
-	"github.com/blevesearch/bleve/search"
+	"github.com/tukdesk/bleve/index"
+	"github.com/tukdesk/bleve/search"
 )
 
 type RegexpSearcher struct {
