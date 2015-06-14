@@ -161,7 +161,7 @@ func (b *Batch) Reset() {
 }
 
 const (
-	arrayPositionsPrefix = "_"
+	arrayPositionsPrefix = ""
 )
 
 func ArrayPositionsToString(pos []uint64) string {

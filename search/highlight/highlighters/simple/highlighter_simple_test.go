@@ -34,7 +34,7 @@ func TestSimpleHighlighter(t *testing.T) {
 		Score: 1.0,
 		Locations: search.FieldTermLocationMap{
 			"desc": map[string]search.TermLocationMap{
-				"_": search.TermLocationMap{
+				"": search.TermLocationMap{
 					"quick": search.Locations{
 						&search.Location{
 							Pos:   2,
@@ -81,7 +81,7 @@ Etiam vel augue vel nisl commodo suscipit et ac nisl. Quisque eros diam, porttit
 		Score: 1.0,
 		Locations: search.FieldTermLocationMap{
 			"full": map[string]search.TermLocationMap{
-				"_": search.TermLocationMap{
+				"": search.TermLocationMap{
 					"metus": search.Locations{
 						&search.Location{
 							Pos:   0,

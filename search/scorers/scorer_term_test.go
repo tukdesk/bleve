@@ -70,7 +70,7 @@ func TestTermScorer(t *testing.T) {
 				},
 				Locations: search.FieldTermLocationMap{
 					"desc": map[string]search.TermLocationMap{
-						"_": search.TermLocationMap{
+						"": search.TermLocationMap{
 							"beer": search.Locations{
 								&search.Location{
 									Pos:   1,
